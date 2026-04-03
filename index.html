@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eagle Vision | نظام الإدارة المالية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eagle Vision | Financial System</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -11,60 +11,57 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    <div class="cursor"></div>
 
-    <div id="loginScreen" class="auth-container">
+    <div id="loginScreen" class="container auth-view">
         <div class="auth-card">
-            <div class="auth-logo"><i class="fas fa-user-shield"></i></div>
-            <h2>تسجيل دخول الإدارة</h2>
-            <div class="auth-inputs">
-                <input type="text" id="adminUser" placeholder="اسم المستخدم (admin)">
-                <input type="password" id="adminPass" placeholder="كلمة المرور (123)">
+            <h1>Eagle Vision</h1>
+            <div class="input-group">
+                <input type="text" id="adminUser" placeholder="اسم المستخدم">
+                <input type="password" id="adminPass" placeholder="كلمة المرور">
             </div>
-            <button onclick="login()" class="login-btn">دخول للنظام</button>
+            <button onclick="login()" class="cta-button">دخول للنظام</button>
         </div>
     </div>
 
-    <div id="mainDashboard" class="dashboard-container hidden">
-        <header class="main-header">
-            <div class="top-bar">
+    <div id="mainDashboard" class="container dashboard-view hidden">
+        <header>
+            <div class="top-nav">
                 <span id="welcomeMsg"></span>
-                <button onclick="logout()" class="logout-btn"><i class="fas fa-power-off"></i></button>
+                <button onclick="logout()" class="logout-icon"><i class="fas fa-power-off"></i></button>
             </div>
-            <h1>إدارة تحصيل الاشتراكات</h1>
+            <h2>إدارة التحصيل</h2>
         </header>
 
-        <div class="stats-container">
-            <div class="stat-box gold">
-                <i class="fas fa-money-bill-trend-up"></i>
-                <div class="stat-text"><span id="totalMoney">0</span><label>إجمالي المحصل</label></div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span id="totalMoney">0</span>
+                <label>المحصل</label>
             </div>
-            <div class="stat-box blue">
-                <i class="fas fa-users"></i>
-                <div class="stat-text"><span id="studentCount">0</span><label>عدد الطلاب</label></div>
+            <div class="stat-card">
+                <span id="studentCount">0</span>
+                <label>الطلاب</label>
             </div>
         </div>
 
-        <div class="action-panel no-print">
-            <div class="add-section">
-                <input type="text" id="studentName" placeholder="اسم الطالب الجديد...">
+        <div class="action-panel">
+            <div class="form-row">
+                <input type="text" id="studentName" placeholder="اسم الطالب">
                 <input type="number" id="amount" placeholder="المبلغ">
-                <button onclick="addStudent()" class="btn-primary"><i class="fas fa-plus"></i></button>
+                <button onclick="addStudent()" class="mini-cta">+</button>
             </div>
             
-            <div class="filter-tabs">
-                <button class="tab active" onclick="filterData('all', this)">الكل</button>
-                <button class="tab" onclick="filterData('paid', this)">تم الدفع</button>
-                <button class="tab" onclick="filterData('unpaid', this)">لم يدفع</button>
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterData('all', this)">الكل</button>
+                <button class="filter-btn" onclick="filterData('paid', this)">دفع</button>
+                <button class="filter-btn" onclick="filterData('unpaid', this)">باقي</button>
+                <button onclick="downloadPDF()" class="pdf-icon"><i class="fas fa-file-pdf"></i></button>
             </div>
-
-            <div class="search-export">
-                <input type="text" id="searchInput" placeholder="بحث بالاسم..." oninput="render()">
-                <button onclick="downloadPDF()" class="btn-pdf"><i class="fas fa-file-pdf"></i> تقرير PDF</button>
-            </div>
+            <input type="text" id="searchInput" placeholder="بحث سريع..." oninput="render()">
         </div>
 
         <div id="printArea">
-            <ul id="studentList" class="data-list"></ul>
+            <ul id="studentList"></ul>
         </div>
     </div>
 
